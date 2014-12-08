@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>78134808-17EB-4EA3-82DE-3B599DD838CA</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Shutterbug</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>12744071-195B-4265-AF30-7D355A787BE1</key>
+		<string>https://github.com/emil2015/HW5_ShutterbugBase.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Shutterbug.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>12744071-195B-4265-AF30-7D355A787BE1</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/emil2015/HW5_ShutterbugBase.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>12744071-195B-4265-AF30-7D355A787BE1</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>12744071-195B-4265-AF30-7D355A787BE1</string>
+			<key>IDESourceControlWCCName</key>
+			<string>HW5_ShutterbugBase</string>
+		</dict>
+	</array>
+</dict>
+</plist>
