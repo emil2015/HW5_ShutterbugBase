@@ -19,7 +19,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self fetchPhotos];
+    //[self fetchPhotos];
 }
 
 
@@ -42,7 +42,9 @@
                                              options:0
                                              error:NULL];
         //Outputs the json data to console
-        NSLog(@"Flickr Result = %@", propertyListResults);
+        
+        //NSLog(@"Flickr Result = %@", propertyListResults);
+        
         //creats an array or photos from the dictionary using the key
         NSArray *photos = [propertyListResults valueForKeyPath:FLICKR_RESULTS_PHOTOS];
         dispatch_async(dispatch_get_main_queue(), ^{

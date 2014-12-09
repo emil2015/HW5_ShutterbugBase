@@ -12,26 +12,48 @@
 
 @interface FlickrPhotosTVC ()
 
+
+
 @end
 
 @implementation FlickrPhotosTVC
+
+- (void)setCountries:(NSArray *)countries{
+    _countries = countries;
+    [self.tableView reloadData];
+}
+
+- (void)setCities:(NSArray *)cities{
+    _cities = cities;
+    [self.tableView reloadData];
+}
 
 - (void)setPhotos:(NSArray *)photos
 {
     _photos = photos;
     [self.tableView reloadData];
 }
-
-
+/*
+- (void)setPlaces:(NSArray *)places
+{
+    _places = places;
+    [self.tableView reloadData];
+}
+*/
 
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-    return 1;
+    return [self.countries count];
 }
 
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    //?
+    return [self.countries objectAtIndex:section];
+}
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

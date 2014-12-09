@@ -10,4 +10,11 @@
 
 @interface FlickrPhotosTVC : UITableViewController
 @property (nonatomic, strong) NSArray *photos; // of Flickr photo NSDictionary
+
+//@property (nonatomic, strong) NSArray *places;
+@property (nonatomic, strong)NSArray *countries;
+@property (nonatomic, strong)NSArray *cities;
+
+
+
 @end

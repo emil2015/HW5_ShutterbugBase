@@ -130,8 +130,8 @@
 		5038F1281A23E12100EDE5EC /* Shutterbug */ = {
 			isa = PBXGroup;
 			children = (
-				5038F1341A23E12200EDE5EC /* Main_iPhone.storyboard */,
 				5038F1371A23E12200EDE5EC /* Main_iPad.storyboard */,
+				5038F1341A23E12200EDE5EC /* Main_iPhone.storyboard */,
 				5038F15A1A23E24A00EDE5EC /* FlickrPhotosTVC.h */,
 				5038F15B1A23E24A00EDE5EC /* FlickrPhotosTVC.m */,
 				5038F15D1A23E4A600EDE5EC /* JustPostedFlickrPhotosTVC.h */,
