@@ -17,6 +17,7 @@
 
 @property (nonatomic, strong)NSArray *places;
 
+@property (nonatomic, strong)NSMutableDictionary *placesDictionary;
 
 
 @end

@@ -32,6 +32,44 @@
 {
     [self.refreshControl beginRefreshing];
     
+    //===================================================================================
+    /*
+    NSURL *urlForPlaces = [FlickrFetcher URLforTopPlaces];
+    
+    dispatch_queue_t fetchQ = dispatch_queue_create("flickr fetcher", NULL);
+    
+    dispatch_async(fetchQ, ^{
+        
+        NSData *placesData = [NSData dataWithContentsOfURL:urlForPlaces];
+        
+        NSDictionary *placesDict = [NSJSONSerialization
+                                    JSONObjectWithData:placesData
+                                    options:0
+                                    error:NULL];
+        //region name
+        //photos for place
+        
+        NSMutableArray *tempPlacesArray = [placesDict valueForKeyPath:FLICKR_RESULTS_PLACES];
+        
+        NSMutableArray *tempPlacesID = [tempPlacesArray valueForKeyPath:FLICKR_PLACE_ID];
+        
+        self.places = tempPlacesID;
+        NSMutableArray *photoTemp = [[NSMutableArray alloc] init];
+        
+        for (id place in tempPlacesID){
+            NSArray
+        }
+    
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.refreshControl endRefreshing];
+            //self.photos = photos;
+            //self.places = places;
+        });
+    });
+    */
+    //===================================================================================
+    
+    
     NSURL *placesURL    = [FlickrFetcher URLforTopPlaces];
 
     //NSURL *url          = [FlickrFetcher URLforRecentGeoreferencedPhotos];
@@ -47,19 +85,40 @@
                                       JSONObjectWithData:jsonPLaces
                                       options:0
                                       error:NULL];
+        NSArray *places = [locationDict valueForKeyPath:@"places.place"];
+        
+        //==============================================================================================================================
+        NSURL *superMeh = [FlickrFetcher URLforInformationAboutPlace:[[places firstObject] valueForKeyPath:FLICKR_PLACE_ID]];
+        
+        NSData *mehPlaces = [NSData dataWithContentsOfURL:superMeh];
+        
+        NSDictionary *mehDict = [NSJSONSerialization
+                                      JSONObjectWithData:mehPlaces
+                                      options:0
+                                      error:NULL];
+        
+        NSLog(@"%@", [FlickrFetcher extractRegionNameFromPlaceInformation:mehDict]);
+        
+        
+        //NSLog(@"%@", [FlickrFetcher extractNameOfPlace:@"jXYpNeRUVL4aQe545A" fromPlaceInformation:mehDict]);
+        
+        //NSString *tempMeh = [[places firstObject] valueForKeyPath:FLICKR_PLACE_ID];
+        //NSLog(@"%@", [FlickrFetcher extractNameOfPlace:tempMeh fromPlaceInformation:mehDict]);
+        //==============================================================================================================================
+        
         //NSLog(@"%@", locationDict);
         
         //NSLog(@"%@", [NSData dataWithContentsOfURL:[FlickrFetcher URLforRecentGeoreferencedPhotos]]);
         
         NSData *jsonResults = [NSData dataWithContentsOfURL:[FlickrFetcher URLforPhotosInPlace:@"jXYpNeRUVL4aQe545A" maxResults:10]];
-        //NSData *jsonResults = [NSData dataWithContentsOfURL:url];
+        //NSData *jsonResults = [NSData dataWithContentsOfURL:placesURL];
 
                 //NSData *jsonResults = [NSData dataWithContentsOfURL:[FlickrFetcher URLforPhotosInPlace:[locationDict valueForKeyPath:FLICKR_RESULTS_PLACES] maxResults:10]];
         
         //Array of dictionaries
-        NSArray *places = [locationDict valueForKeyPath:@"places.place"];
+
         
-        NSLog(@"%@", places);
+        //NSLog(@"%@", places);
         
         NSDictionary *propertyListResults = [NSJSONSerialization
                                              JSONObjectWithData:jsonResults
@@ -69,6 +128,7 @@
         NSMutableArray *tempCities = [[NSMutableArray alloc] init];
         NSMutableArray *tempCountries = [[NSMutableArray alloc] init];
         NSMutableArray *tempPlaces = [[NSMutableArray alloc] init];
+
         
         for (id place in places){
             NSString *placeID = [place valueForKeyPath:FLICKR_PLACE_ID];
@@ -90,10 +150,21 @@
             //Connect places and cities
             [tempPlaces addObject:placeID];
         }
-        self.places = tempPlaces;
+        self.places = [tempPlaces copy];
+        self.cities = [tempCities copy];
         self.countries = [tempCountries copy];
-        
 
+        //------------------
+        NSMutableDictionary *placesDictionary = [[NSMutableDictionary alloc] init];
+        for (int i = 0; i < self.countries.count; i++){
+            [placesDictionary setObject:[self.cities objectAtIndex:i] forKey:[self.countries objectAtIndex:i]];
+            [placesDictionary setObject:[self.places objectAtIndex:i] forKey:[self.countries objectAtIndex:i]];
+        }
+        //NSLog(@"My dict: %@", [placesDictionary description]);
+
+        //-----------------
+        NSLog(@"%@#", [FlickrFetcher extractNameOfPlace:[tempPlaces firstObject] fromPlaceInformation:locationDict]);
+        
         NSMutableArray *tempPlacePhoto = [[NSMutableArray alloc] init];
         for (id meh in tempPlaces){
             //need to do something to get the photos from places into an array somehow and pass it so it populates the sections.
@@ -116,7 +187,24 @@
             //self.places = places;
         });
     });
-    
+    //[self orginizeDictionary];
+    /*
+    NSMutableDictionary *placesDictionary = [[NSMutableDictionary alloc] init];
+    for (int i = 0; i < self.countries.count; i++){
+        [placesDictionary setObject:[self.cities objectAtIndex:i] forKey:[self.countries objectAtIndex:i]];
+        [placesDictionary setObject:[self.places objectAtIndex:i] forKey:[self.countries objectAtIndex:i]];
+    }
+    NSLog(@"My dict: %@", [placesDictionary description]);
+     */
+}
+
+- (void)orginizeDictionary{
+    NSMutableDictionary *placesDictionary = [[NSMutableDictionary alloc] init];
+    for (int i = 0; i < self.countries.count; i++){
+        [placesDictionary setObject:[self.cities objectAtIndex:i] forKey:[self.countries objectAtIndex:i]];
+        [placesDictionary setObject:[self.places objectAtIndex:i] forKey:[self.countries objectAtIndex:i]];
+    }
+    NSLog(@"My dict: %@", [placesDictionary description]);
 }
 
 

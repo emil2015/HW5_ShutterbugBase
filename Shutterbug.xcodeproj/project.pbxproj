@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2047DDA51A38A25900BEECED /* historyTVCViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2047DDA41A38A25900BEECED /* historyTVCViewController.m */; };
 		20A954F81A354B7500235692 /* LocationTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A954F71A354B7500235692 /* LocationTVC.m */; };
 		5038F1231A23E12100EDE5EC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5038F1221A23E12100EDE5EC /* Foundation.framework */; };
 		5038F1251A23E12100EDE5EC /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5038F1241A23E12100EDE5EC /* CoreGraphics.framework */; };
@@ -40,6 +41,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2047DDA31A38A25900BEECED /* historyTVCViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = historyTVCViewController.h; sourceTree = "<group>"; };
+		2047DDA41A38A25900BEECED /* historyTVCViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = historyTVCViewController.m; sourceTree = "<group>"; };
 		20A954F61A354B7500235692 /* LocationTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationTVC.h; sourceTree = "<group>"; };
 		20A954F71A354B7500235692 /* LocationTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationTVC.m; sourceTree = "<group>"; };
 		5038F11F1A23E12100EDE5EC /* Shutterbug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Shutterbug.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -142,6 +145,8 @@
 				5038F13B1A23E12200EDE5EC /* ViewController.m */,
 				5070806F1A267DAE00AE1838 /* ImageViewController.h */,
 				507080701A267DAE00AE1838 /* ImageViewController.m */,
+				2047DDA31A38A25900BEECED /* historyTVCViewController.h */,
+				2047DDA41A38A25900BEECED /* historyTVCViewController.m */,
 				5038F13D1A23E12200EDE5EC /* Images.xcassets */,
 				5038F1601A23E56700EDE5EC /* Flickr Fetcher */,
 				5038F1291A23E12100EDE5EC /* Supporting Files */,
@@ -295,6 +300,7 @@
 				5038F1641A23E56700EDE5EC /* FlickrFetcher.m in Sources */,
 				507080711A267DAE00AE1838 /* ImageViewController.m in Sources */,
 				20A954F81A354B7500235692 /* LocationTVC.m in Sources */,
+				2047DDA51A38A25900BEECED /* historyTVCViewController.m in Sources */,
 				5038F12F1A23E12200EDE5EC /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

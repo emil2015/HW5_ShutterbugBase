@@ -18,6 +18,11 @@
 
 @implementation FlickrPhotosTVC
 
+- (void)setPlacesDictionary:(NSMutableDictionary *)placesDictionary{
+    _placesDictionary = placesDictionary;
+    [self.tableView reloadData];
+}
+
 - (void)setPlaces:(NSArray *)places{
     _places = places;
     [self.tableView reloadData];
@@ -51,7 +56,8 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-    return [self.countries count];
+    //return [self.countries count];
+    return 1;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
@@ -65,6 +71,7 @@
 {
     // Return the number of rows in the section.
     return [self.photos count];
+    //return [self.cities count];
 }
 
 
@@ -74,10 +81,16 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Flickr Photo Cell" forIndexPath:indexPath];
     
     // Configure the cell...
+    /*
     NSDictionary *photo = self.photos[indexPath.row];
     cell.textLabel.text = [photo valueForKeyPath:FLICKR_PHOTO_TITLE];
     cell.detailTextLabel.text = [photo valueForKeyPath:FLICKR_PHOTO_DESCRIPTION];
-\
+     */
+    
+    NSString *cities = self.cities[indexPath.row];
+    cell.textLabel.text = cities;//[cities valueForKeyPath:FLICKR_PLACE_NAME];
+    //cell.detailTextLabel.text = [cities valueForKeyPath:FLICKR_PLACE_ID];
+    
     return cell;
 }
 
