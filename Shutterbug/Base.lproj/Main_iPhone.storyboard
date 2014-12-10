@@ -172,7 +172,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ntp-2e-kkl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="40" y="80"/>
+            <point key="canvasLocation" x="471" y="63"/>
         </scene>
         <!--Image View Controller-->
         <scene sceneID="LU1-ed-ghv">
@@ -207,7 +207,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yJZ-Zn-Y2M" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="471" y="74"/>
+            <point key="canvasLocation" x="902" y="57"/>
         </scene>
         <!--HistoryTVC View Controller - Root View Controller-->
         <scene sceneID="NOq-Rx-klP">
@@ -218,12 +218,28 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Flickr Photo Cell" id="Joh-SU-2dX">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Flickr Photo Cell" textLabel="WlO-pM-Pm9" detailTextLabel="d7m-ok-4wl" style="IBUITableViewCellStyleSubtitle" id="Joh-SU-2dX">
                                 <rect key="frame" x="0.0" y="86" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Joh-SU-2dX" id="8de-tT-UKU">
                                     <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="WlO-pM-Pm9">
+                                            <rect key="frame" x="15" y="3" width="34" height="22"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="d7m-ok-4wl">
+                                            <rect key="frame" x="15" y="25" width="43" height="15"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
                                 </tableViewCellContentView>
                                 <connections>
                                     <segue destination="eMk-ah-fKy" kind="push" identifier="Display Photo" id="5pR-la-Rmn"/>
@@ -247,11 +263,11 @@
             </objects>
             <point key="canvasLocation" x="40" y="808"/>
         </scene>
-        <!--Navigation Controller - History-->
+        <!--Navigation Controller - Not History-->
         <scene sceneID="T9j-yd-Sw5">
             <objects>
                 <navigationController definesPresentationContext="YES" id="4Mo-mX-nqL" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="History" id="zrK-GV-bXw"/>
+                    <tabBarItem key="tabBarItem" title="Not History" id="zrK-GV-bXw"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="6ND-Rw-Byy">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -263,21 +279,75 @@
             </objects>
             <point key="canvasLocation" x="-494" y="808"/>
         </scene>
-        <!--Navigation Controller - Countries-->
+        <!--Navigation Controller - Location-->
         <scene sceneID="Rlm-JP-Yig">
             <objects>
                 <navigationController definesPresentationContext="YES" id="EuQ-bv-Bmv" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Countries" id="WA8-ik-Twi"/>
+                    <tabBarItem key="tabBarItem" title="Location" id="WA8-ik-Twi"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Gba-OY-3lS">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="nNr-Pz-o9p" kind="relationship" relationship="rootViewController" id="rSH-KC-ceo"/>
+                        <segue destination="EZ8-bU-yXF" kind="relationship" relationship="rootViewController" id="Auq-J9-PSC"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qT1-Cu-FPz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-494" y="74"/>
+            <point key="canvasLocation" x="-494" y="60"/>
+        </scene>
+        <!--PlacesTVC-->
+        <scene sceneID="zXb-8o-JwE">
+            <objects>
+                <tableViewController id="EZ8-bU-yXF" customClass="placesTVC" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="hzi-Il-mG1">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Flickr Photo Cell" textLabel="JgA-8i-pWA" detailTextLabel="KSi-iE-33g" style="IBUITableViewCellStyleSubtitle" id="I6O-Nq-oTr">
+                                <rect key="frame" x="0.0" y="86" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="I6O-Nq-oTr" id="pav-cG-A9d">
+                                    <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="JgA-8i-pWA">
+                                            <rect key="frame" x="15" y="3" width="34" height="22"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="KSi-iE-33g">
+                                            <rect key="frame" x="15" y="25" width="43" height="15"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="nNr-Pz-o9p" kind="push" identifier="location" id="18G-UA-WvX"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="EZ8-bU-yXF" id="ndg-hL-HTx"/>
+                            <outlet property="delegate" destination="EZ8-bU-yXF" id="taI-hk-gZu"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="gqi-y0-NY5"/>
+                    <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="sKj-Me-yCH">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <connections>
+                            <action selector="fetchPhotos" destination="EZ8-bU-yXF" eventType="valueChanged" id="1v4-TJ-7LN"/>
+                        </connections>
+                    </refreshControl>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="AkY-Cf-AHc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-24" y="64"/>
         </scene>
         <!--Navigation Controller - ShutterBug-->
         <scene sceneID="Cde-lO-JFp">
@@ -305,6 +375,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="5pR-la-Rmn"/>
+        <segue reference="qo5-Rz-JfN"/>
     </inferredMetricsTieBreakers>
 </document>

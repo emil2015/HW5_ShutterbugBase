@@ -10,4 +10,6 @@
 
 @interface LocationTVC : FlickrPhotosTVC
 
+@property (nonatomic, strong) NSString *thePlace;
+
 @end

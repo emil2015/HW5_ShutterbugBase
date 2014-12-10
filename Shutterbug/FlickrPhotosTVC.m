@@ -13,10 +13,11 @@
 @interface FlickrPhotosTVC ()
 
 
-
 @end
 
 @implementation FlickrPhotosTVC
+
+#define XXYYZ 3
 
 - (void)setPlacesDictionary:(NSMutableDictionary *)placesDictionary{
     _placesDictionary = placesDictionary;
@@ -56,8 +57,8 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-    //return [self.countries count];
-    return 1;
+    return [self.countries count];
+    //return 1;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
@@ -70,7 +71,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return [self.photos count];
+    return XXYYZ;//[self.photos count] / [self.countries count];
     //return [self.cities count];
 }
 
@@ -81,14 +82,22 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Flickr Photo Cell" forIndexPath:indexPath];
     
     // Configure the cell...
-    /*
-    NSDictionary *photo = self.photos[indexPath.row];
-    cell.textLabel.text = [photo valueForKeyPath:FLICKR_PHOTO_TITLE];
-    cell.detailTextLabel.text = [photo valueForKeyPath:FLICKR_PHOTO_DESCRIPTION];
-     */
     
-    NSString *cities = self.cities[indexPath.row];
-    cell.textLabel.text = cities;//[cities valueForKeyPath:FLICKR_PLACE_NAME];
+    NSDictionary *photo = self.photos[indexPath.row + (indexPath.section * XXYYZ)];
+    cell.textLabel.text = [photo valueForKeyPath:FLICKR_PHOTO_TITLE];
+    cell.detailTextLabel.text = self.cities[indexPath.row + (indexPath.section * XXYYZ)];
+    
+    
+    //cell.textLabel.text = self.cities[indexPath.row + (indexPath.section * XXYYZ)];
+    //cell.detailTextLabel.text = @"";
+    
+    
+    
+    //cell.detailTextLabel.text = self.cities[indexPath.section];
+    //cell.detailTextLabel.text = [photo valueForKeyPath:FLICKR_PHOTO_DESCRIPTION];
+    
+    //NSString *cities = self.cities[indexPath.row];
+    //cell.textLabel.text = cities;//[cities valueForKeyPath:FLICKR_PLACE_NAME];
     //cell.detailTextLabel.text = [cities valueForKeyPath:FLICKR_PLACE_ID];
     
     return cell;
@@ -107,7 +116,7 @@
     
     
     if ([detail isKindOfClass:[ImageViewController class]]) {
-        [self prepareImageViewController:detail toDisplayPhoto:self.photos[indexPath.row]];
+        [self prepareImageViewController:detail toDisplayPhoto:self.photos[indexPath.row + (indexPath.section * XXYYZ)]];
     }
 }
 
@@ -124,7 +133,8 @@
         if (indexPath) {
             if ([segue.identifier isEqualToString:@"Display Photo"]) {
                 if ([segue.destinationViewController isKindOfClass:[ImageViewController class   ]]) {
-                    [self prepareImageViewController:segue.destinationViewController toDisplayPhoto:self.photos[indexPath.row]];
+                    [self prepareImageViewController:segue.destinationViewController toDisplayPhoto:self.photos[indexPath.row + (indexPath.section * XXYYZ)]];
+                    
                 }
             }
         }

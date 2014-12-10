@@ -11,6 +11,8 @@
 
 @interface historyTVCViewController ()
 
+
+
 @end
 
 @implementation historyTVCViewController
@@ -71,7 +73,7 @@ dispatch_async(fetchQ, ^{
         //Connect places and cities
         [tempPlaces addObject:placeID];
         
-        NSData *jsonResults = [NSData dataWithContentsOfURL:[FlickrFetcher URLforPhotosInPlace:placeID maxResults:1]];
+        NSData *jsonResults = [NSData dataWithContentsOfURL:[FlickrFetcher URLforPhotosInPlace:placeID maxResults:3]];
         NSDictionary *propertyListResults = [NSJSONSerialization
                                              JSONObjectWithData:jsonResults
                                              options:0

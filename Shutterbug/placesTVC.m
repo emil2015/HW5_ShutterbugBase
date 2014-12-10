@@ -1,38 +1,39 @@
 //
-//  LocationTVC.m
+//  placesTVC.m
 //  Shutterbug
 //
-//  Created by emil on 12/7/14.
+//  Created by David Gross on 12/10/14.
 //  Copyright (c) 2014 Lehman College. All rights reserved.
 //
 
-#import "LocationTVC.h"
+#import "placesTVC.h"
 #import "FlickrFetcher.h"
-#import "ImageViewController.h"
+#import "LocationTVC.h"
 
-@interface LocationTVC ()
-
-
-
+@interface placesTVC ()
+@property (nonatomic, strong)  NSArray *localPlaces;
 @end
 
-@implementation LocationTVC
+@implementation placesTVC
 
+- (void)setLocalPlaces:(NSArray *)localPlaces{
+    if (!_localPlaces){
+        _localPlaces = localPlaces;
+    }
+}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self fetchPhotos];
-    
 }
-
 
 - (IBAction)fetchPhotos
 {
     [self.refreshControl beginRefreshing];
     
-    //NSURL *placesURL    = [FlickrFetcher URLforTopPlaces];
+    NSURL *placesURL    = [FlickrFetcher URLforTopPlaces];
     
     //NSURL *url          = [FlickrFetcher URLforRecentGeoreferencedPhotos];
     
@@ -40,7 +41,7 @@
     dispatch_queue_t fetchQ = dispatch_queue_create("flickr fetcher", NULL);
     
     dispatch_async(fetchQ, ^{
-    /*
+        
         NSData *jsonPLaces = [NSData dataWithContentsOfURL:placesURL];
         
         NSDictionary *locationDict = [NSJSONSerialization
@@ -53,7 +54,7 @@
         NSMutableArray *tempCountries = [[NSMutableArray alloc] init];
         NSMutableArray *tempPlaces = [[NSMutableArray alloc] init];
         NSMutableArray *photos = [[NSMutableArray alloc] init];
-     
+        
         
         for (id place in places){
             NSString *placeID = [place valueForKeyPath:FLICKR_PLACE_ID];
@@ -71,10 +72,10 @@
             }
             
             [tempCities addObject:[stringCutter firstObject]];
-            
-            
             [tempPlaces addObject:placeID];
-            //This fetches the photos fo the places
+            //Connect places and cities
+            /*
+            
             
             NSData *jsonResults = [NSData dataWithContentsOfURL:[FlickrFetcher URLforPhotosInPlace:placeID maxResults:3]];
             NSDictionary *propertyListResults = [NSJSONSerialization
@@ -82,51 +83,21 @@
                                                  options:0
                                                  error:NULL];
             [photos addObjectsFromArray:[propertyListResults valueForKeyPath:FLICKR_RESULTS_PHOTOS]];
-             
-            //end photo getting and adding to photo array
+            */
             
         }
         self.places = [tempPlaces copy];
         self.cities = [tempCities copy];
         self.countries = [tempCountries copy];
-        */
-    
-    NSData *jsonResults = [NSData dataWithContentsOfURL:[FlickrFetcher URLforPhotosInPlace:self.thePlace maxResults:50]];
-    NSDictionary *propertyListResults = [NSJSONSerialization
-                                         JSONObjectWithData:jsonResults
-                                         options:0
-                                         error:NULL];
-    
+        self.localPlaces = [tempPlaces copy];
         
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.refreshControl endRefreshing];
-            self.photos = [propertyListResults valueForKeyPath:FLICKR_RESULTS_PHOTOS];
-            //self.places = places;
+            self.photos = photos;
+            //self.localPlaces = places;
         });
     });
-}
-
-#pragma mark - UITableViewDataSource
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    // Return the number of sections.
-    //return [self.countries count];
-    return 1;
-}
-
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-{
-    //?
-    return @"Place holder";
-}
-
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    // Return the number of rows in the section.
-    return [self.photos count];
-    //return [self.cities count];
+    
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -135,13 +106,13 @@
     
     // Configure the cell...
     
-    NSDictionary *photo = self.photos[indexPath.row];
-    cell.textLabel.text = [photo valueForKeyPath:FLICKR_PHOTO_TITLE];
-    cell.detailTextLabel.text = [photo valueForKeyPath:FLICKR_PHOTO_DESCRIPTION];
+    //NSDictionary *photo = self.photos[indexPath.row + (indexPath.section * XXYYZ)];
+    //cell.textLabel.text = [photo valueForKeyPath:FLICKR_PHOTO_TITLE];
+    //cell.detailTextLabel.text = self.cities[indexPath.row + (indexPath.section * XXYYZ)];
     
     
-    //cell.textLabel.text = self.cities[indexPath.row + (indexPath.section * XXYYZ)];
-    //cell.detailTextLabel.text = @"";
+    cell.textLabel.text = self.cities[indexPath.row + (indexPath.section * 3)];
+    cell.detailTextLabel.text = @"";
     
     
     
@@ -155,39 +126,18 @@
     return cell;
 }
 
-
-//--------------------------------------------
-/*
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    // Return the number of rows in the section.
-    return [self.places count];
-}
-
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Flickr Photo Cell" forIndexPath:indexPath];
-    
-    // Configure the cell...
-    NSDictionary *photo = self.places[indexPath.row];
-    cell.textLabel.text = [photo valueForKeyPath:FLICKR_PHOTO_TITLE];
-    cell.detailTextLabel.text = [photo valueForKeyPath:FLICKR_PHOTO_DESCRIPTION];
-    \
-    return cell;
-}
-
-#pragma mark - Navigation
-
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([sender isKindOfClass:[UITableViewCell class]]) {
         NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
         if (indexPath) {
-            if ([segue.identifier isEqualToString:@"Display Photo"]) {
-                if ([segue.destinationViewController isKindOfClass:[ImageViewController class   ]]) {
-                    [self prepareImageViewController:segue.destinationViewController toDisplayPhoto:self.photos[indexPath.row]];
+            if ([segue.identifier isEqualToString:@"location"]) {
+                if ([segue.destinationViewController isKindOfClass:[LocationTVC class   ]]) {
+                    //[self prepareImageViewController:segue.destinationViewController toDisplayPhoto:self.photos[indexPath.row + (indexPath.section * XXYYZ)]];
+                    LocationTVC *dest = (LocationTVC *)segue.destinationViewController;
+                    dest.thePlace = self.localPlaces[indexPath.row + indexPath.section * 3];
+                    
+                    
                 }
             }
         }
@@ -195,10 +145,15 @@
     
 }
 
-- (void)prepareImageViewController:(ImageViewController *)ivc
-                    toDisplayPhoto:(NSDictionary *)photo
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    ivc.imageURL = [FlickrFetcher URLforPhoto:photo format:FlickrPhotoFormatLarge];
-    ivc.title = [photo valueForKeyPath:FLICKR_PHOTO_TITLE];
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
 */
+
 @end
