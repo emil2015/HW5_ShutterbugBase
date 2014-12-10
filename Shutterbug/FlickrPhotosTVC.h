@@ -15,6 +15,8 @@
 @property (nonatomic, strong)NSArray *countries;
 @property (nonatomic, strong)NSArray *cities;
 
+@property (nonatomic, strong)NSArray *places;
+
 
 
 @end

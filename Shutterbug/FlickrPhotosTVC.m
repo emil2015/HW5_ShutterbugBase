@@ -18,6 +18,11 @@
 
 @implementation FlickrPhotosTVC
 
+- (void)setPlaces:(NSArray *)places{
+    _places = places;
+    [self.tableView reloadData];
+}
+
 - (void)setCountries:(NSArray *)countries{
     _countries = countries;
     [self.tableView reloadData];

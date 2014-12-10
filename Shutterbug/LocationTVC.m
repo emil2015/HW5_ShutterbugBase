@@ -34,7 +34,7 @@
     
     NSURL *placesURL    = [FlickrFetcher URLforTopPlaces];
 
-    NSURL *url          = [FlickrFetcher URLforRecentGeoreferencedPhotos];
+    //NSURL *url          = [FlickrFetcher URLforRecentGeoreferencedPhotos];
 
 
     dispatch_queue_t fetchQ = dispatch_queue_create("flickr fetcher", NULL);
@@ -68,6 +68,7 @@
 
         NSMutableArray *tempCities = [[NSMutableArray alloc] init];
         NSMutableArray *tempCountries = [[NSMutableArray alloc] init];
+        NSMutableArray *tempPlaces = [[NSMutableArray alloc] init];
         
         for (id place in places){
             NSString *placeID = [place valueForKeyPath:FLICKR_PLACE_ID];
@@ -87,12 +88,17 @@
             [tempCities addObject:[stringCutter firstObject]];
             
             //Connect places and cities
-            
+            [tempPlaces addObject:placeID];
         }
-        
+        self.places = tempPlaces;
         self.countries = [tempCountries copy];
         
 
+        NSMutableArray *tempPlacePhoto = [[NSMutableArray alloc] init];
+        for (id meh in tempPlaces){
+            //need to do something to get the photos from places into an array somehow and pass it so it populates the sections.
+        }
+        
         //Outputs the json data to console
         
         //NSLog(@"Flickr Result = %@", propertyListResults);
