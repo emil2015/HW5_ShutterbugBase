@@ -11,7 +11,7 @@
 #import "ImageViewController.h"
 
 @interface FlickrPhotosTVC ()
-
+@property int count;;
 
 @end
 
@@ -31,6 +31,8 @@
 
 - (void)setCountries:(NSArray *)countries{
     _countries = countries;
+    //self.count = [self.countries count];
+    self.count = 3;
     [self.tableView reloadData];
 }
 
@@ -71,7 +73,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return XXYYZ;//[self.photos count] / [self.countries count];
+    return self.count;//[self.photos count] / [self.countries count];
     //return [self.cities count];
 }
 
@@ -85,12 +87,18 @@
     
 
     
-    NSDictionary *photo = self.photos[indexPath.row + (indexPath.section * XXYYZ)];
+    NSDictionary *photo = self.photos[indexPath.row + (indexPath.section * self.count)];
+    
+    if (![[photo valueForKeyPath:FLICKR_PHOTO_TITLE] isEqualToString:@""]){
     cell.textLabel.text = [photo valueForKeyPath:FLICKR_PHOTO_TITLE];
-    cell.detailTextLabel.text = self.cities[indexPath.row + (indexPath.section * XXYYZ)];
+    } else {
+        cell.textLabel.text = @"Unknown";
+    }
+    
+    cell.detailTextLabel.text = self.cities[indexPath.row + (indexPath.section * self.count)];
     
     
-    //cell.textLabel.text = self.cities[indexPath.row + (indexPath.section * XXYYZ)];
+    //cell.textLabel.text = self.cities[indexPath.row + (indexPath.section * self.count)];
     //cell.detailTextLabel.text = @"";
     
     
@@ -118,7 +126,7 @@
     
     
     if ([detail isKindOfClass:[ImageViewController class]]) {
-        [self prepareImageViewController:detail toDisplayPhoto:self.photos[indexPath.row + (indexPath.section * XXYYZ)]];
+        [self prepareImageViewController:detail toDisplayPhoto:self.photos[indexPath.row + (indexPath.section * self.count)]];
     }
 }
 
@@ -135,7 +143,7 @@
         if (indexPath) {
             if ([segue.identifier isEqualToString:@"Display Photo"]) {
                 if ([segue.destinationViewController isKindOfClass:[ImageViewController class   ]]) {
-                    [self prepareImageViewController:segue.destinationViewController toDisplayPhoto:self.photos[indexPath.row + (indexPath.section * XXYYZ)]];
+                    [self prepareImageViewController:segue.destinationViewController toDisplayPhoto:self.photos[indexPath.row + (indexPath.section * self.count)]];
                     
                 }
             }
