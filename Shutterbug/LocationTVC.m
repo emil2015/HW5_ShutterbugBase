@@ -96,11 +96,23 @@
                                          JSONObjectWithData:jsonResults
                                          options:0
                                          error:NULL];
-    
         
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.refreshControl endRefreshing];
             self.photos = [propertyListResults valueForKeyPath:FLICKR_RESULTS_PHOTOS];
+            
+            //NSLog(@"%@", self.photos);
+            
+            NSArray *sortedArray;
+            sortedArray = [self.photos sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
+                NSString *first = [a valueForKeyPath:FLICKR_PHOTO_TITLE];
+                NSString *second = [b valueForKeyPath:FLICKR_PHOTO_TITLE];
+                return [first compare:second];
+            }];
+            self.photos = sortedArray;
+            
+
+            
             //self.places = places;
         });
     });

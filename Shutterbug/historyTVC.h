@@ -1,5 +1,5 @@
 //
-//  placesTVC.h
+//  historyTVC.h
 //  Shutterbug
 //
 //  Created by David Gross on 12/10/14.
@@ -8,8 +8,6 @@
 
 #import "FlickrPhotosTVC.h"
 
-@interface placesTVC : FlickrPhotosTVC
-
-@property (nonatomic,strong) NSMutableArray *historyOfPlaces;
+@interface historyTVC : FlickrPhotosTVC
 
 @end

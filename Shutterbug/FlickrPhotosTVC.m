@@ -83,6 +83,8 @@
     
     // Configure the cell...
     
+
+    
     NSDictionary *photo = self.photos[indexPath.row + (indexPath.section * XXYYZ)];
     cell.textLabel.text = [photo valueForKeyPath:FLICKR_PHOTO_TITLE];
     cell.detailTextLabel.text = self.cities[indexPath.row + (indexPath.section * XXYYZ)];

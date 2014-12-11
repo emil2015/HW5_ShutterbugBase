@@ -9,17 +9,38 @@
 #import "placesTVC.h"
 #import "FlickrFetcher.h"
 #import "LocationTVC.h"
+#import "newHistoryTVCViewController.h"
 
 @interface placesTVC ()
 @property (nonatomic, strong)  NSArray *localPlaces;
+
+
+
 @end
 
 @implementation placesTVC
+
+@synthesize historyOfPlaces = _historyOfPlaces;
+
+- (NSMutableArray *)historyOfPlaces{
+    if (!_historyOfPlaces){
+        _historyOfPlaces = [[NSMutableArray alloc] init];
+    }
+    return _historyOfPlaces;
+}
+
+- (void)setHistoryOfPlaces:(NSMutableArray *)historyOfPlaces{
+    if(!_historyOfPlaces){
+        _historyOfPlaces = historyOfPlaces;
+    }
+    [self.tableView reloadData];
+}
 
 - (void)setLocalPlaces:(NSArray *)localPlaces{
     if (!_localPlaces){
         _localPlaces = localPlaces;
     }
+    [self.tableView reloadData];
 }
 
 - (void)viewDidLoad
@@ -48,12 +69,57 @@
                                       JSONObjectWithData:jsonPLaces
                                       options:0
                                       error:NULL];
+        //NSLog(@"%@", locationDict);
+        
         NSArray *places = [locationDict valueForKeyPath:@"places.place"];
         
         NSMutableArray *tempCities = [[NSMutableArray alloc] init];
         NSMutableArray *tempCountries = [[NSMutableArray alloc] init];
         NSMutableArray *tempPlaces = [[NSMutableArray alloc] init];
         NSMutableArray *photos = [[NSMutableArray alloc] init];
+        
+        /*
+        NSArray *sortedArray;
+        sortedArray = [places sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
+            NSString *first  =  [a valueForKeyPath:[FlickrFetcher extractRegionNameFromPlaceInformation:a]];
+            NSString *second =  [b valueForKeyPath:[FlickrFetcher extractRegionNameFromPlaceInformation:b]];
+            return [first compare:second];
+        }];
+        places = sortedArray;
+        */
+        
+        
+        //sort by city
+        /*
+        NSArray *sortedArray2;
+        sortedArray2 = [places sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
+            NSString *first = [a valueForKeyPath:FLICKR_PLACE_NAME];
+            NSString *second = [b valueForKeyPath:FLICKR_PLACE_NAME];
+            return [first compare:second];
+        }];
+        */
+        
+        //places = [sortedArray2 copy];
+        //sorts by country
+        NSArray *sortedArray;
+        sortedArray = [places sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
+            NSArray *firstA = [[a valueForKeyPath:FLICKR_PLACE_NAME] componentsSeparatedByString:@","];
+            NSString *first = [firstA lastObject];
+            NSArray *secondB = [[b valueForKeyPath:FLICKR_PLACE_NAME] componentsSeparatedByString:@","];
+            NSString *second = [secondB lastObject];
+            return [first compare:second];
+        }];
+        places = [sortedArray copy];
+        
+        /*
+         NSSortDescriptor *gradeSorter = [[NSSortDescriptor alloc] initWithKey:@"grade" ascending:YES];
+         NSSortDescriptor *nameSorter = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
+         
+         [personList sortUsingDescriptors:[NSArray arrayWithObjects:gradeSorter, nameSorter, nil]];
+         */
+        
+
+
         
         
         for (id place in places){
@@ -85,15 +151,31 @@
             [photos addObjectsFromArray:[propertyListResults valueForKeyPath:FLICKR_RESULTS_PHOTOS]];
             */
             
+
+            
         }
         self.places = [tempPlaces copy];
         self.cities = [tempCities copy];
         self.countries = [tempCountries copy];
         self.localPlaces = [tempPlaces copy];
         
+        
+        
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.refreshControl endRefreshing];
             self.photos = photos;
+            
+
+            
+            /*
+            NSMutableArray *temp = [[NSMutableArray alloc] init];
+
+            for (id meh in photos){
+                [temp addObject:[FlickrFetcher extractRegionNameFromPlaceInformation:meh]];
+                
+            }
+            self.cities = [temp copy];
+            */
             //self.localPlaces = places;
         });
     });
@@ -136,7 +218,11 @@
                     //[self prepareImageViewController:segue.destinationViewController toDisplayPhoto:self.photos[indexPath.row + (indexPath.section * XXYYZ)]];
                     LocationTVC *dest = (LocationTVC *)segue.destinationViewController;
                     dest.thePlace = self.localPlaces[indexPath.row + indexPath.section * 3];
-                    
+                    dest.biggerPlace = self.countries[indexPath.row + indexPath.section * 3];
+                    //--
+                    [self.historyOfPlaces addObject:self.localPlaces[indexPath.row + indexPath.section * 3]];
+                    //newHistoryTVCViewController *his = (newHistoryTVCViewController *)segue.destinationViewController;
+                    //his.history = [self.historyOfPlaces copy];
                     
                 }
             }

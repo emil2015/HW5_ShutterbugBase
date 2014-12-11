@@ -21,10 +21,12 @@
 
 - (void)setScrollView:(UIScrollView *)scrollView
 {
+
     _scrollView = scrollView;
+    _scrollView.delegate = self;
     _scrollView.minimumZoomScale = 0.2;
     _scrollView.maximumZoomScale = 2.0;
-    _scrollView.delegate = self;
+    _scrollView.zoomScale = 1.0;
     self.scrollView.contentSize = self.image ? self.image.size : CGSizeZero;
 }
 
@@ -42,7 +44,7 @@
     _imageURL = imageURL;
 
     // starts out like this
-    /// self.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:self.imageURL]];
+    // self.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:self.imageURL]];
     
     [self startDownloadingImage];
 }
@@ -143,12 +145,13 @@
 
 - (void)setImage:(UIImage *)image
 {
+    self.imageView.frame = CGRectMake(0., 0, image.size.width, image.size.height);
     
     self.scrollView.zoomScale = 1.0;
     
     self.imageView.image = image;
 
-    self.imageView.frame = CGRectMake(0., 0, image.size.width, image.size.height);
+    
     
     
     [self.imageView sizeToFit];

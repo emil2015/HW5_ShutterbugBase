@@ -12,4 +12,6 @@
 
 @property (nonatomic, strong) NSString *thePlace;
 
+@property (nonatomic, strong) NSString *biggerPlace;
+
 @end
